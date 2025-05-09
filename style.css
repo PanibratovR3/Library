@@ -74,3 +74,41 @@ button.book-setting {
 .no {
     color: red;
 }
+
+.add-book-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+}
+
+.add-book-button-show-modal {
+    background-color: navy;
+    color: white;
+    padding: 10px 5px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.add-book-modal-container {
+    position: relative;
+}
+
+dialog {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+}
+
+::backdrop {
+    opacity: 0.7;
+}
+
+.add-book-dialog-header {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+}
+dialog {
+    background-color: yellow;
+}

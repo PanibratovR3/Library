@@ -101,3 +101,16 @@ addBookToLibrary(
 for (const book of myLibrary) {
   displayBook(book);
 }
+
+const addBookButton = document.querySelector(".add-book-button-show-modal");
+const dialog = document.querySelector("dialog");
+const closeButton = document.querySelector("dialog button");
+
+addBookButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+console.log(addBookButton);
+closeButton.addEventListener("click", () => {
+  dialog.close();
+});
