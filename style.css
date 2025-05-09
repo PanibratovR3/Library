@@ -13,7 +13,7 @@
 
 .central-column {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 16px;
 }
 .main {
@@ -55,6 +55,18 @@ button.book-setting {
     font-size: 0.9rem;
 }
 
+.book-setting:hover {
+    opacity: 0.5;
+}
+.toggle {
+    background-color: cyan;
+    color: black;
+}
+
+.delete {
+    background-color: black;
+    color: white;
+}
 .yes {
     color: green;
 }
