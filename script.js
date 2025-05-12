@@ -13,8 +13,20 @@ function addBookToLibrary(author, title, numberOfPages, isRead) {
   myLibrary.push(newBook);
 }
 
-function displayBook(book) {
+function showAllBooks() {
   const mainField = document.querySelector(".central-column");
+  if (mainField.hasChildNodes()) {
+    while (mainField.firstChild) {
+      mainField.removeChild(mainField.firstChild);
+    }
+  }
+  for (const book of myLibrary) {
+    const bookCard = drawBook(book);
+    mainField.appendChild(bookCard);
+  }
+}
+
+function drawBook(book) {
   const bookCard = document.createElement("div");
   bookCard.classList.add("book-item");
   bookCard.setAttribute("data-id", book.id);
@@ -30,7 +42,6 @@ function displayBook(book) {
   authorValue.textContent = book.author;
   authorRow.appendChild(authorValue);
   bookCard.appendChild(authorRow);
-  mainField.appendChild(bookCard);
   // Add title info
   const titleRow = document.createElement("div");
   titleRow.classList.add("book-item-row");
@@ -87,8 +98,29 @@ function displayBook(book) {
   deleteButton.textContent = "Delete";
   settingsRow.appendChild(deleteButton);
   bookCard.appendChild(settingsRow);
-  mainField.appendChild(bookCard);
+  return bookCard;
 }
+
+const addBookButton = document.querySelector(".add-book-button-show-modal");
+const dialog = document.querySelector("dialog");
+
+addBookButton.addEventListener("click", () => {
+  dialog.showModal();
+});
+
+const addBookDialogButton = document.querySelector("dialog button");
+addBookDialogButton.addEventListener("click", () => {
+  const inputAuthor = document.querySelector("#author").value;
+  const inputTitle = document.querySelector("#title").value;
+  const inputNumberOfPages = document.querySelector("#number-of-pages").value;
+  const inputIsRead = document.querySelector("#is-read").checked;
+  if (inputAuthor && inputTitle && inputNumberOfPages) {
+    addBookToLibrary(inputAuthor, inputTitle, inputNumberOfPages, inputIsRead);
+    showAllBooks();
+    document.querySelector("form").reset();
+    dialog.close();
+  }
+});
 
 addBookToLibrary("Kurt Vonneghut", "Hocus Pocus", 302, true);
 addBookToLibrary("Oscar Wilde", "The Pitcure of Dorian Gray", 287, true);
@@ -98,19 +130,5 @@ addBookToLibrary(
   204,
   false
 );
-for (const book of myLibrary) {
-  displayBook(book);
-}
 
-const addBookButton = document.querySelector(".add-book-button-show-modal");
-const dialog = document.querySelector("dialog");
-const closeButton = document.querySelector("dialog button");
-
-addBookButton.addEventListener("click", () => {
-  dialog.showModal();
-});
-
-console.log(addBookButton);
-closeButton.addEventListener("click", () => {
-  dialog.close();
-});
+showAllBooks();
