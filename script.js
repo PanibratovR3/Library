@@ -8,6 +8,10 @@ function Book(author, title, numberOfPages, isRead) {
   this.isRead = isRead;
 }
 
+Book.prototype.toggleReadState = function () {
+  this.isRead = !this.isRead;
+};
+
 function addBookToLibrary(author, title, numberOfPages, isRead) {
   const newBook = new Book(author, title, numberOfPages, isRead);
   myLibrary.push(newBook);
@@ -91,6 +95,7 @@ function drawBook(book) {
   buttonStatusToggle.classList.add("book-setting");
   buttonStatusToggle.classList.add("toggle");
   buttonStatusToggle.textContent = "Toggle read state";
+  buttonStatusToggle.addEventListener("click", toggleReadState);
   settingsRow.appendChild(buttonStatusToggle);
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("book-setting");
@@ -99,6 +104,15 @@ function drawBook(book) {
   settingsRow.appendChild(deleteButton);
   bookCard.appendChild(settingsRow);
   return bookCard;
+}
+
+function toggleReadState(event) {
+  const settingsRow = event.target.parentNode;
+  const bookCard = settingsRow.parentNode;
+  const bookID = bookCard.getAttribute("data-id");
+  const bookIndex = myLibrary.findIndex((book) => book.id === bookID);
+  myLibrary[bookIndex].toggleReadState();
+  showAllBooks();
 }
 
 const addBookButton = document.querySelector(".add-book-button-show-modal");
