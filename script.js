@@ -96,9 +96,19 @@ function drawBook(book) {
   deleteButton.classList.add("book-setting");
   deleteButton.classList.add("delete");
   deleteButton.textContent = "Delete";
+  deleteButton.addEventListener("click", deleteBook);
   settingsRow.appendChild(deleteButton);
   bookCard.appendChild(settingsRow);
   return bookCard;
+}
+
+function deleteBook(event) {
+  const settings = event.target.parentNode;
+  const bookCard = settings.parentNode;
+  const bookCardID = bookCard.getAttribute("data-id");
+  const bookIndex = myLibrary.findIndex((book) => book.id === bookCardID);
+  myLibrary.splice(bookIndex, 1);
+  showAllBooks();
 }
 
 const addBookButton = document.querySelector(".add-book-button-show-modal");
