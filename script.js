@@ -107,21 +107,20 @@ function drawBook(book) {
   return bookCard;
 }
 
-<<<<<<< HEAD
 function deleteBook(event) {
   const settings = event.target.parentNode;
   const bookCard = settings.parentNode;
   const bookCardID = bookCard.getAttribute("data-id");
   const bookIndex = myLibrary.findIndex((book) => book.id === bookCardID);
   myLibrary.splice(bookIndex, 1);
-=======
+  showAllBooks();
+}
 function toggleReadState(event) {
   const settingsRow = event.target.parentNode;
   const bookCard = settingsRow.parentNode;
   const bookID = bookCard.getAttribute("data-id");
   const bookIndex = myLibrary.findIndex((book) => book.id === bookID);
   myLibrary[bookIndex].toggleReadState();
->>>>>>> toggle-read-state
   showAllBooks();
 }
 
