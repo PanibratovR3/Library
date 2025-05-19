@@ -1,16 +1,43 @@
 const myLibrary = [];
 
-function Book(author, title, numberOfPages, isRead) {
-  this.id = crypto.randomUUID();
-  this.author = author;
-  this.title = title;
-  this.numberOfPages = numberOfPages;
-  this.isRead = isRead;
-}
+class Book {
+  #id;
+  #author;
+  #title;
+  #numberOfPages;
+  #isRead;
+  constructor(author, title, numberOfPages, isRead) {
+    this.#id = crypto.randomUUID();
+    this.#author = author;
+    this.#title = title;
+    this.#numberOfPages = numberOfPages;
+    this.#isRead = isRead;
+  }
 
-Book.prototype.toggleReadState = function () {
-  this.isRead = !this.isRead;
-};
+  toggleReadState() {
+    this.#isRead = !this.#isRead;
+  }
+
+  get id() {
+    return this.#id;
+  }
+
+  get author() {
+    return this.#author;
+  }
+
+  get title() {
+    return this.#title;
+  }
+
+  get numberOfPages() {
+    return this.#numberOfPages;
+  }
+
+  get isRead() {
+    return this.#isRead;
+  }
+}
 
 function addBookToLibrary(author, title, numberOfPages, isRead) {
   const newBook = new Book(author, title, numberOfPages, isRead);
