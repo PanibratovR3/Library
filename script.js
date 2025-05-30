@@ -183,17 +183,17 @@ function isValidInput(input) {
   }
 }
 
-// function setInputClass(input, flags) {
-//   console.log("Type of input: " + input.type);
-//   console.log("ID: " + input.id);
-//   console.log("...");
-//   if (input.type === "number") {
-//     input.className =
-//       flags.isNotEmpty && flags.moreThanMin ? "valid" : "invalid";
-//   } else if (input.type === "text") {
-//     input.className = flags.isNotEmpty ? "valid" : "invalid";
-//   }
-// }
+function setInputClass(input, flags) {
+  console.log("Type of input: " + input.type);
+  console.log("ID: " + input.id);
+  console.log("...");
+  if (input.type === "number") {
+    input.className =
+      flags.isNotEmpty && flags.moreThanMin ? "valid" : "invalid";
+  } else if (input.type === "text") {
+    input.className = flags.isNotEmpty ? "valid" : "invalid";
+  }
+}
 
 function updateError(input, flags) {
   const errorTag = document.querySelector("span.error." + input.id);
@@ -220,17 +220,9 @@ function updateError(input, flags) {
   }
 }
 
-function startValidation() {
-  const inputs = Array.from(document.querySelectorAll("input")).slice(0, -1);
-  inputs.forEach((input) => {
-    const resultFlags = isValidInput(input);
-    // setInputClass(input, resultFlags);
-  });
-}
-
 function handleInput(event) {
   const resultFlags = isValidInput(event.target);
-  // setInputClass(event.target, resultFlags);
+  setInputClass(event.target, resultFlags);
   updateError(event.target, resultFlags);
 }
 
@@ -241,7 +233,7 @@ function handleSubmit(event) {
 
   inputs.forEach((input) => {
     const resultFlags = isValidInput(input);
-    // setInputClass(input, resultFlags);
+    setInputClass(input, resultFlags);
     updateError(input, resultFlags);
   });
 
@@ -253,8 +245,6 @@ function handleSubmit(event) {
     console.log("We can add new book! Yay!!!");
   }
 }
-
-window.addEventListener("load", startValidation);
 
 const inputs = Array.from(document.querySelectorAll("input")).slice(0, -1);
 
