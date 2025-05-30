@@ -158,20 +158,109 @@ addBookButton.addEventListener("click", () => {
   dialog.showModal();
 });
 
-const addBookDialogButton = document.querySelector("dialog button");
-addBookDialogButton.addEventListener("click", () => {
-  const inputAuthor = document.querySelector("#author").value;
-  const inputTitle = document.querySelector("#title").value;
-  const inputNumberOfPages = document.querySelector("#number-of-pages").value;
-  const inputIsRead = document.querySelector("#is-read").checked;
-  if (inputAuthor && inputTitle && inputNumberOfPages) {
-    addBookToLibrary(inputAuthor, inputTitle, inputNumberOfPages, inputIsRead);
-    showAllBooks();
-    document.querySelector("form").reset();
-    dialog.close();
-  }
-});
+// const addBookDialogButton = document.querySelector("dialog button");
+// addBookDialogButton.addEventListener("click", () => {
+//   const inputAuthor = document.querySelector("#author").value;
+//   const inputTitle = document.querySelector("#title").value;
+//   const inputNumberOfPages = document.querySelector("#number-of-pages").value;
+//   const inputIsRead = document.querySelector("#is-read").checked;
+//   if (inputAuthor && inputTitle && inputNumberOfPages) {
+//     addBookToLibrary(inputAuthor, inputTitle, inputNumberOfPages, inputIsRead);
+//     showAllBooks();
+//     document.querySelector("form").reset();
+//     dialog.close();
+//   }
+// });
 
+function isValidInput(input) {
+  if (input.type === "number") {
+    let isNotEmpty = input.value.length !== 0;
+    let moreThanMin = input.value > input.min;
+    return { isNotEmpty, moreThanMin };
+  } else if (input.type === "text") {
+    let isNotEmpty = input.value.length !== 0;
+    return { isNotEmpty };
+  }
+}
+
+// function setInputClass(input, flags) {
+//   console.log("Type of input: " + input.type);
+//   console.log("ID: " + input.id);
+//   console.log("...");
+//   if (input.type === "number") {
+//     input.className =
+//       flags.isNotEmpty && flags.moreThanMin ? "valid" : "invalid";
+//   } else if (input.type === "text") {
+//     input.className = flags.isNotEmpty ? "valid" : "invalid";
+//   }
+// }
+
+function updateError(input, flags) {
+  const errorTag = document.querySelector("span.error." + input.id);
+  if (input.type === "number") {
+    if (flags.isNotEmpty && flags.moreThanMin) {
+      errorTag.textContent = "";
+      errorTag.classList.remove("active");
+    } else {
+      errorTag.textContent =
+        "Number of pages must be not empty and more than " +
+        input.min +
+        " pages.";
+      errorTag.classList.add("active");
+    }
+  } else if (input.type === "text") {
+    if (flags.isNotEmpty) {
+      errorTag.textContent = "";
+      errorTag.classList.remove("active");
+    } else {
+      errorTag.textContent =
+        input.id[0].toUpperCase() + input.id.slice(1) + " must not be empty.";
+      errorTag.classList.add("active");
+    }
+  }
+}
+
+function startValidation() {
+  const inputs = Array.from(document.querySelectorAll("input")).slice(0, -1);
+  inputs.forEach((input) => {
+    const resultFlags = isValidInput(input);
+    // setInputClass(input, resultFlags);
+  });
+}
+
+function handleInput(event) {
+  const resultFlags = isValidInput(event.target);
+  // setInputClass(event.target, resultFlags);
+  updateError(event.target, resultFlags);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+
+  const inputs = Array.from(document.querySelectorAll("input")).slice(0, -1);
+
+  inputs.forEach((input) => {
+    const resultFlags = isValidInput(input);
+    // setInputClass(input, resultFlags);
+    updateError(input, resultFlags);
+  });
+
+  const errorFields = Array.from(document.querySelectorAll("span.error"));
+  const areAllErrorFieldsEmpty = errorFields.every(
+    (field) => field.textContent === ""
+  );
+  if (areAllErrorFieldsEmpty) {
+    console.log("We can add new book! Yay!!!");
+  }
+}
+
+window.addEventListener("load", startValidation);
+
+const inputs = Array.from(document.querySelectorAll("input")).slice(0, -1);
+
+const form = document.querySelector("form");
+form.addEventListener("submit", handleSubmit);
+inputs.forEach((input) => input.addEventListener("input", handleInput));
 addBookToLibrary("Kurt Vonneghut", "Hocus Pocus", 302, true);
 addBookToLibrary("Oscar Wilde", "The Pitcure of Dorian Gray", 287, true);
 addBookToLibrary(

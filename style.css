@@ -123,7 +123,7 @@ dialog {
     top: 30%;
     left: 40%;
     background-color: lightskyblue;
-    padding: 10px;
+    padding: 100px;
     border: 10px solid green;
 }
 
@@ -176,7 +176,7 @@ input[type="checkbox"] {
     padding: 5px 10px;
 }
 
-.add-book-monitor {
+/* .add-book-monitor {
     display: inline-block;
     height: 100%;
     margin-left: 3px;
@@ -197,12 +197,35 @@ input:out-of-range ~ .add-book-monitor::after {
 
 .non-empty-flag {
     display: inline-block;
-}
+} */
 
-input:invalid + .non-empty-flag::after {
+/* input:invalid + .non-empty-flag::after {
     content: "❌";
 }
 
 input:valid + .non-empty-flag::after {
     content: "✅";
+} */
+
+.error-container {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    display: inline-block;
+    color: darkred;
+    font: 0.7rem;
+}
+
+input.invalid {
+    border: 2px dashed red;
+}
+
+input.invalid:focus {
+    outline: none;
+}
+
+.active {
+    padding: 3px;
 }
