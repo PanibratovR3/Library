@@ -158,20 +158,6 @@ addBookButton.addEventListener("click", () => {
   dialog.showModal();
 });
 
-// const addBookDialogButton = document.querySelector("dialog button");
-// addBookDialogButton.addEventListener("click", () => {
-//   const inputAuthor = document.querySelector("#author").value;
-//   const inputTitle = document.querySelector("#title").value;
-//   const inputNumberOfPages = document.querySelector("#number-of-pages").value;
-//   const inputIsRead = document.querySelector("#is-read").checked;
-//   if (inputAuthor && inputTitle && inputNumberOfPages) {
-//     addBookToLibrary(inputAuthor, inputTitle, inputNumberOfPages, inputIsRead);
-//     showAllBooks();
-//     document.querySelector("form").reset();
-//     dialog.close();
-//   }
-// });
-
 function isValidInput(input) {
   if (input.type === "number") {
     let isNotEmpty = input.value.length !== 0;
@@ -184,9 +170,6 @@ function isValidInput(input) {
 }
 
 function setInputClass(input, flags) {
-  console.log("Type of input: " + input.type);
-  console.log("ID: " + input.id);
-  console.log("...");
   if (input.type === "number") {
     input.className =
       flags.isNotEmpty && flags.moreThanMin ? "valid" : "invalid";
@@ -242,7 +225,14 @@ function handleSubmit(event) {
     (field) => field.textContent === ""
   );
   if (areAllErrorFieldsEmpty) {
-    console.log("We can add new book! Yay!!!");
+    const author = inputs[0].value;
+    const title = inputs[1].value;
+    const numberOfPages = inputs[2].value;
+    const hasBeenRead = document.querySelector("#is-read").checked;
+    addBookToLibrary(author, title, numberOfPages, hasBeenRead);
+    showAllBooks();
+    event.target.reset();
+    dialog.close();
   }
 }
 
