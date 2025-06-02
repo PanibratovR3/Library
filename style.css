@@ -176,37 +176,6 @@ input[type="checkbox"] {
     padding: 5px 10px;
 }
 
-/* .add-book-monitor {
-    display: inline-block;
-    height: 100%;
-    margin-left: 3px;
-    vertical-align: text-bottom;    
-}
-
-input:required ~ .add-book-monitor::after {
-    content: "Required";
-    background-color: black;
-    color: white;
-}
-
-input:out-of-range ~ .add-book-monitor::after {
-    content: "Incorrect";
-    background-color: red;
-    color: white;
-}
-
-.non-empty-flag {
-    display: inline-block;
-} */
-
-/* input:invalid + .non-empty-flag::after {
-    content: "❌";
-}
-
-input:valid + .non-empty-flag::after {
-    content: "✅";
-} */
-
 .error-container {
     display: flex;
     justify-content: center;
