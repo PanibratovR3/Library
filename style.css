@@ -123,8 +123,9 @@ dialog {
     top: 30%;
     left: 40%;
     background-color: lightskyblue;
-    padding: 100px;
+    padding: 150px;
     border: 10px solid green;
+    width: 50rem;
 }
 
 ::backdrop {

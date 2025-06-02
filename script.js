@@ -161,8 +161,9 @@ addBookButton.addEventListener("click", () => {
 function isValidInput(input) {
   if (input.type === "number") {
     let isNotEmpty = input.value !== 0;
-    let moreThanMin = input.value > input.min;
-    return { isNotEmpty, moreThanMin };
+    let moreThanMin = input.value >= input.min;
+    let lessThanMax = input.value <= input.max;
+    return { isNotEmpty, moreThanMin, lessThanMax };
   } else if (input.type === "text") {
     let isNotEmpty = input.value.length !== 0;
     return { isNotEmpty };
@@ -172,7 +173,9 @@ function isValidInput(input) {
 function setInputClass(input, flags) {
   if (input.type === "number") {
     input.className =
-      flags.isNotEmpty && flags.moreThanMin ? "valid" : "invalid";
+      flags.isNotEmpty && flags.moreThanMin && flags.lessThanMax
+        ? "valid"
+        : "invalid";
   } else if (input.type === "text") {
     input.className = flags.isNotEmpty ? "valid" : "invalid";
   }
@@ -181,13 +184,15 @@ function setInputClass(input, flags) {
 function updateError(input, flags) {
   const errorTag = document.querySelector("span.error." + input.id);
   if (input.type === "number") {
-    if (flags.isNotEmpty && flags.moreThanMin) {
+    if (flags.isNotEmpty && flags.moreThanMin && flags.lessThanMax) {
       errorTag.textContent = "";
       errorTag.classList.remove("active");
     } else {
       errorTag.textContent =
-        "Number of pages must be not empty and more than " +
+        "Number of pages must be not empty and between " +
         input.min +
+        " and " +
+        input.max +
         " pages.";
       errorTag.classList.add("active");
     }
