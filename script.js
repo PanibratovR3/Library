@@ -160,7 +160,7 @@ addBookButton.addEventListener("click", () => {
 
 function isValidInput(input) {
   if (input.type === "number") {
-    let isNotEmpty = input.value.length !== 0;
+    let isNotEmpty = input.value !== 0;
     let moreThanMin = input.value > input.min;
     return { isNotEmpty, moreThanMin };
   } else if (input.type === "text") {
